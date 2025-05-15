@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-app.set('json spaces', 2);
-require('dotenv').config();
+app.set("json spaces", 2);
+require("dotenv").config();
 
 // Rotas
 const authRoutes = require('./routes/authRoutes');
