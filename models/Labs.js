@@ -22,4 +22,3 @@ const LabSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('Labs', LabSchema);
-// dados de nome, descrição, capacidade e foto.
