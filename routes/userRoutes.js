@@ -1,30 +1,9 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const router = express.Router();
-const User = require('../models/User');
+const userController = require('../controllers/userController')
 
-router.post('/registrar', async (req, res) => {
-  const { email, senha } = req.body;
+router.post('/registrar', userController.create);
 
-  if (!email || !senha) {
-    return res.status(400).json({ erro: 'Email e senha são obrigatórios' });
-  }
-
-  try {
-    const usuarioExistente = await User.findOne({ email });
-    if (usuarioExistente) {
-      return res.status(409).json({ erro: 'Usuário já existe' });
-    }
-
-    const senhaHash = await bcrypt.hash(senha, 10);
-
-    const usuario = new User({ email, senha: senhaHash });
-    await usuario.save();
-
-    res.status(201).json({ mensagem: 'Usuário registrado com sucesso' });
-  } catch (err) {
-    res.status(500).json({ erro: 'Erro ao registrar usuário' });
-  }
-});
+router.post('/logar', userController.logar);
 
 module.exports = router;
