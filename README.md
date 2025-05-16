@@ -1,5 +1,6 @@
 # 🔬 API de Gerenciamento de Laboratórios
-    Esta API permite o gerenciamento de laboratórios com autenticação via token, controle de acesso por dias da semana, geração de relatórios em PDF e persistência de dados em MongoDB. Ideal para instituições que desejam organizar e monitorar o uso de suas salas técnicas.
+    Esta API permite o gerenciamento de laboratórios com autenticação via token, controle de acesso por dias da semana, geração de relatórios em PDF e 
+    persistência de dados em MongoDB. Ideal para instituições que desejam organizar e monitorar o uso de suas salas técnicas.
 
 # 🚀 Funcionalidades
     Autenticação JWT
