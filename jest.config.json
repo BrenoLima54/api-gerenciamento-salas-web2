@@ -1,5 +1,8 @@
 {
     "testPathIgnorePatterns": [
         "<rootDir>/__tests__/mocks/"
-    ]
+    ],
+ "coveragePathIgnorePatterns": [
+        "<rootDir>/__tests__/mocks/"
+ ]
 }

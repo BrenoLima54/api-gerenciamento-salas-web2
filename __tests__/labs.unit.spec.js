@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-const path = require("path");
+const labsMock = require("./mocks/labs.mock");
 
 const mockedVerify = require("./mocks/jwt.mock").mockedVerify;
 jest.mock("jsonwebtoken", () => ({
@@ -8,8 +8,6 @@ jest.mock("jsonwebtoken", () => ({
   verify: (...args) => mockedVerify(...args),
 }));
 
-const labsMock = require("./mocks/labs.mock");
-const mockedLabsConstructor = jest.fn();
 const mockedLabsSave = jest.fn();
 const mockedLabsFind = jest.fn();
 const mockedLabsFindOne = jest.fn();
@@ -138,7 +136,6 @@ describe("/laboratorio route", () => {
     });
 
     it("should save lab with status 201", async () => {
-      mockedLabsConstructor.mockResolvedValue(labsMock.labsWithImages[0]);
       mockedLabsFindOne.mockResolvedValue(false);
 
       const response = await requestWithAuth(
