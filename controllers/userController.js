@@ -6,13 +6,13 @@ exports.create = async (req, res) => {
   const { email, senha } = req.body;
 
   if (!email || !senha) {
-    return res.status(400).json({ erro: 'Email e senha são obrigatórios' });
+    return res.status(400).json({ error: 'Email e senha são obrigatórios' });
   }
 
   try {
     const usuarioExistente = await User.findOne({ email });
     if (usuarioExistente) {
-      return res.status(400).json({ erro: 'Usuário já existe' });
+      return res.status(400).json({ error: 'Usuário já existe' });
     }
 
     const senhaHash = await bcrypt.hash(senha, 10);
@@ -20,9 +20,9 @@ exports.create = async (req, res) => {
     const usuario = new User({ email, senha: senhaHash });
     await usuario.save();
 
-    res.status(201).json({ mensagem: 'Usuário registrado com sucesso' });
+    res.status(201).json({ message: 'Usuário registrado com sucesso' });
   } catch (err) {
-    res.status(500).json({ erro: 'Erro ao registrar usuário' });
+    res.status(500).json({ error: 'Erro ao registrar usuário' });
   }
 };
 
@@ -30,18 +30,18 @@ exports.logar = async (req, res) => {
   const { email, senha } = req.body;
 
   if (!email || !senha) {
-    return res.status(400).json({ erro: 'E-mail e senha são obrigatórios!' });
+    return res.status(400).json({ error: "E-mail e senha são obrigatórios!" });
   }
 
   try {
     const usuario = await User.findOne({ email });
     if (!usuario) {
-      return res.status(401).json({ erro: 'Credenciais inválidas' });
+      return res.status(401).json({ error: "Credenciais inválidas" });
     }
 
     const senhaValida = await bcrypt.compare(senha, usuario.senha);
     if (!senhaValida) {
-      return res.status(401).json({ erro: 'Credenciais inválidas' });
+      return res.status(401).json({ error: "Credenciais inválidas" });
     }
 
     const token = jwt.sign(
@@ -53,6 +53,6 @@ exports.logar = async (req, res) => {
     res.json({ token });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ erro: 'Erro interno no servidor' });
+    res.status(500).json({ error: "Erro interno no servidor" });
   }
 };
