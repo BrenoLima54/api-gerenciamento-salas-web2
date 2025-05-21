@@ -2,9 +2,12 @@
   "name": "api-gerenciamento-salas",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "test": "jest --watchAll=false --coverage",
+    "test:watch": "jest --watchAll=true"
   },
   "repository": {
     "type": "git",
@@ -30,5 +33,10 @@
     "node": "^24.0.1",
     "node-fetch": "^2.7.0",
     "pdfkit": "^0.17.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.1"
   }
 }

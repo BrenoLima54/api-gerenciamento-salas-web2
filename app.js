@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
+const limitaDias = require('./middlewares/closedDays');
 app.set("json spaces", 2);
 require("dotenv").config();
+
+app.use(limitaDias);
 
 // Rotas
 const userRoutes = require('./routes/userRoutes');

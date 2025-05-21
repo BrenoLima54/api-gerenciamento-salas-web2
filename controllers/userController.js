@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 exports.create = async (req, res) => {
   const { email, senha } = req.body;
@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
   try {
     const usuarioExistente = await User.findOne({ email });
     if (usuarioExistente) {
-      return res.status(409).json({ error: 'Usuário já existe' });
+      return res.status(400).json({ error: 'Usuário já existe' });
     }
 
     const senhaHash = await bcrypt.hash(senha, 10);
@@ -47,7 +47,7 @@ exports.logar = async (req, res) => {
     const token = jwt.sign(
       { id: usuario._id, email: usuario.email },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: '1h' }
     );
 
     res.json({ token });
