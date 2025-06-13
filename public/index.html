@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento - Labs</title>
+</head>
+<body>
+    <center><h1>⚠️ NOTIFICAÇÕES ⚠️</h1>
+    <ul id="notificacoes"></ul>
+    </center>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        socket.onAny((event, message) => {
+            if (event.startsWith("bloquear(")) {
+                const ul = document.getElementById("notificacoes");
+                const li = document.createElement("li");
+
+                li.textContent = message;
+                ul.appendChild(li);
+            }
+        });
+    </script>
+</body>
+</html>

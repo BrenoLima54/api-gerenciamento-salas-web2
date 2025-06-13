@@ -1,6 +1,9 @@
 const Lab = require('../models/Labs');
 const PDFDocument = require("pdfkit");
 const fetch = require("node-fetch");
+const fs = require('fs');
+const path = require('path');
+
 
 exports.create = async (req, res) => {
     try {
@@ -92,3 +95,46 @@ exports.get = async (req, res) => {
         res.status(500).send("Erro ao gerar relatório");
     }
 };
+
+exports.block = (req, res) => {
+    const lab = req.params.lab;
+    const io = req.app.get('io');
+
+    if (!lab) {
+        return res.status(400).json({message: 'Laboratório não informado'});
+    }
+    
+    io.emit(`bloquear(${lab})`, `Laboratório ${lab} foi bloqueado`);
+    return res.status(200).json({message: `Laboratório ${lab} bloqueado e o broadcast foi enviado!`});
+};
+
+exports.videoTutorial = (req, res) => {
+    const videoPath = path.join(__dirname, '../video/video.mp4');
+    const stat = fs.statSync(videoPath);
+    const fileSize = stat.size;
+    const range = req.headers.range;
+
+    if (!range) {
+        res.writeHead(200, {
+            'Content-Length': fileSize,
+            'Content-Type': 'video/mp4',
+        });
+
+        fs.createReadStream(videoPath).pipe(res);
+    } else {
+        const parts = range.replace(/bytes=/, "").split("-");
+        const start = parseInt(parts[0], 10);
+        const end = parts[1] ? parseInt(parts[1], 10) : fileSize -1;
+        const chunkSize = end - start + 1;
+
+        const file = fs.createReadStream(videoPath, {start, end});
+        res.writeHead(206, {
+            'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+            'Accept-Ranges': 'bytes',
+            'Content-Length': chunkSize,
+            'Content-Type': 'video/mp4',
+        });
+        file.pipe(res);
+    }
+};
+
