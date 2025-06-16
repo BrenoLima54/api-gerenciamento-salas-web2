@@ -2,23 +2,21 @@
   "name": "api-gerenciamento-salas",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "api/server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js",
-    "test": "jest --watchAll=false --coverage",
-    "test:watch": "jest --watchAll=true"
+    "start": "node api/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nataliarauj/api-gerenciamento-salas.git"
+    "url": "git+https://github.com/BrenoLima54/api-gerenciamento-salas.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nataliarauj/api-gerenciamento-salas/issues"
+    "url": "https://github.com/BrenoLima54/api-gerenciamento-salas/issues"
   },
-  "homepage": "https://github.com/nataliarauj/api-gerenciamento-salas#readme",
+  "homepage": "https://github.com/BrenoLima54/api-gerenciamento-salas#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
@@ -33,10 +31,5 @@
     "node": "^24.0.1",
     "node-fetch": "^2.7.0",
     "pdfkit": "^0.17.1"
-  },
-  "devDependencies": {
-    "jest": "^29.7.0",
-    "nodemon": "^3.1.10",
-    "supertest": "^7.1.1"
   }
 }
