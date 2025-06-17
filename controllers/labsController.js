@@ -3,7 +3,7 @@ const PDFDocument = require("pdfkit");
 const fetch = require("node-fetch");
 const fs = require('fs');
 const path = require('path');
-
+const temperatureState = {currentTem:0}
 
 exports.create = async (req, res) => {
     try {
