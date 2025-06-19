@@ -12,7 +12,7 @@ router.get("/videoTutorial", labController.videoTutorial);
 
 router.post("/bloquear/:lab", labController.block);
 
-router.get('/temperatura/:temp', labController.updateTemperature);
+router.get('/temperatura/', labController.updateTemperature);
 
 router.get('/temperaturaAtual', labController.getTemperature);
 
