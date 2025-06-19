@@ -3,7 +3,7 @@ const PDFDocument = require("pdfkit");
 const fetch = require("node-fetch");
 const fs = require('fs');
 const path = require('path');
-const temperatureState = {currentTem:0}
+// const temperatureState = {currentTem:0}
 
 exports.create = async (req, res) => {
     try {
@@ -138,45 +138,16 @@ exports.videoTutorial = (req, res) => {
     }
 };
 
-const updateTemperature = (req, res) => {
-  try {
-    const { temp } = req.params;
-    
-    temperatureState.currentTemp = temp;
-
-    const message = `A temperatura atual do laboratório é: ${temperatureState.currentTemp}°C`;
-
-    req.io.emit('nova-temperatura', message);
-    
-    console.log(`Temperatura recebida do sensor: ${temperatureState.currentTemp}°C`);
-    res.status(200).json({ message: `Temperatura ${temperatureState.currentTemp}°C recebida com sucesso.` });
-  } catch (error) {
-    res.status(500).json({ message: 'Erro ao processar a temperatura.', error: error.message });
-  }
-};
-
-const getTemperature = (req, res) => {
-  try {
-    res.status(200).json({ temperatura: temperatureState.currentTemp });
-  } catch (error) {
-    res.status(500).json({ message: 'Erro ao buscar a temperatura.', error: error.message });
-  }
-};
+var dadosTemperatura = []
 
 exports.updateTemperature = (req, res) => {
   try {
-    const temperatureState = req.app.get('temperatureState');
-    const io = req.app.get('io');
-    const { temp } = req.params;
-    
-    temperatureState.currentTemp = temp;
 
-    const message = `A temperatura atual do laboratório é: ${temperatureState.currentTemp}°C`;
-
-    io.emit('nova-temperatura', message);
+    const temp = req.query.temp;
     
-    console.log(`Temperatura recebida do sensor: ${temperatureState.currentTemp}°C`);
-    res.status(200).json({ message: `Temperatura ${temperatureState.currentTemp}°C recebida com sucesso.` });
+    dadosTemperatura.push(temp);
+
+    res.status(200).json({ message: `Temperatura ${temp}°C recebida com sucesso.` });
   } catch (error) {
     res.status(500).json({ message: 'Erro ao processar a temperatura.', error: error.message });
   }
@@ -184,8 +155,7 @@ exports.updateTemperature = (req, res) => {
 
 exports.getTemperature = (req, res) => {
   try {
-    const temperatureState = req.app.get('temperatureState');
-    res.status(200).json({ temperatura: temperatureState.currentTemp });
+    res.json({'Temperaturas:': dadosTemperatura})
   } catch (error) {
     res.status(500).json({ message: 'Erro ao buscar a temperatura.', error: error.message });
   }
