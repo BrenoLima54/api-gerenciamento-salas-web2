@@ -155,7 +155,7 @@ exports.updateTemperature = (req, res) => {
 
 exports.getTemperature = (req, res) => {
   try {
-    res.json({'Temperaturas:': dadosTemperatura})
+    res.json({'Temperaturas:': dadosTemperatura[dadosTemperatura.length - 1]})
   } catch (error) {
     res.status(500).json({ message: 'Erro ao buscar a temperatura.', error: error.message });
   }
