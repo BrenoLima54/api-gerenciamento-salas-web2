@@ -24,4 +24,8 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
 module.exports = app;
